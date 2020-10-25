@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.dupat.dupatmovie.ui.auth.AuthViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000"
+        tools:context=".ui.auth.LoginActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:theme="@style/ToolbarTheme"
+                    app:titleTextColor="@color/colorAccent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DUPAT"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="32sp"
+                        android:fontFamily="@font/bebas"/>
+
+                </androidx.appcompat.widget.Toolbar>
+
+            </LinearLayout>
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_margin="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_centerInParent="true">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/txtUsername"
+                            android:background="@drawable/selector_input_login"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColorHint="#FFFFFF"
+                            android:theme="@style/InputTheme"
+                            android:padding="5dp"
+                            app:hintTextColor="#fff"
+                            android:hint="Username">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:text="@={viewmodel.email}"
+                                android:layout_width="match_parent"
+                                android:textColor="#FFFFFF"
+                                android:inputType="textEmailAddress"
+                                android:backgroundTint="#00FFFFFF"
+                                android:layout_height="wrap_content"/>
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/txtPassword"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/selector_input_login"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColorHint="#FFFFFF"
+                            app:passwordToggleEnabled="true"
+                            app:passwordToggleTint="#FFFFFF"
+                            android:theme="@style/InputTheme"
+                            android:padding="5dp"
+                            app:hintTextColor="#fff"
+                            android:hint="Password">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:text="@={viewmodel.password}"
+                                android:layout_width="match_parent"
+                                android:textColor="#FFFFFF"
+                                android:inputType="textPassword"
+                                android:backgroundTint="#00FFFFFF"
+                                android:layout_height="wrap_content"/>
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Button
+                            android:onClick="@{viewmodel.onLoginButtonClick}"
+                            android:id="@+id/btnLogin"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="25dp"
+                            android:background="@drawable/background_button_login"
+                            android:text="Login"
+                            android:fontFamily="@font/proxima_reguler"
+                            android:textStyle="bold"
+                            android:textColor="#fff"
+                            android:padding="20dp"
+                            android:textSize="18sp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Or"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="20dp"
+                            android:textColor="#939393"
+                            android:fontFamily="@font/proxima_reguler"/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Not have account?"
+                                android:layout_gravity="center_horizontal"
+                                android:textSize="18sp"
+                                android:textColor="#FFFFFF"
+                                android:fontFamily="@font/proxima_reguler"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:id="@+id/btnRegister"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Register Now."
+                                    android:layout_gravity="center_horizontal"
+                                    android:textSize="18sp"
+                                    android:textColor="#FFFFFF"
+                                    android:fontFamily="@font/proxima_reguler"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>
