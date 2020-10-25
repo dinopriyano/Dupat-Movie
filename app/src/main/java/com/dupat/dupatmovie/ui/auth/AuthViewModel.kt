@@ -1,9 +1,10 @@
 package com.dupat.dupatmovie.ui.auth
 
-import android.util.Patterns
 import android.view.View
 import androidx.lifecycle.ViewModel
 import com.dupat.dupatmovie.data.repositories.LoginRepository
+import com.dupat.dupatmovie.ui.utils.APIExceptions
+import com.dupat.dupatmovie.ui.utils.Corountines
 
 class AuthViewModel: ViewModel() {
 
@@ -24,8 +25,21 @@ class AuthViewModel: ViewModel() {
         }
         else
         {
-            val response = LoginRepository().userLogin(email!!,password!!)
-            authListener?.onSuccess(response)
+            Corountines.main {
+                try {
+                    val response = LoginRepository().userLogin(email!!,password!!)
+                    response.let {
+                        authListener?.onSuccess(it)
+                        return@main
+                    }
+
+                    authListener?.onFailure(response.message!!)
+                }
+                catch (e: APIExceptions)
+                {
+                    authListener?.onFailure(e.message!!)
+                }
+            }
         }
     }
 

@@ -5,11 +5,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.dupat.dupatmovie.R
+import com.dupat.dupatmovie.data.network.response.LoginResponse
 import com.dupat.dupatmovie.databinding.ActivityLoginBinding
+import com.dupat.dupatmovie.ui.utils.snackbar
 import com.dupat.dupatmovie.ui.utils.toast
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -41,17 +41,14 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, AuthListener {
     }
 
     override fun onProcess() {
-        toast("Login Clicked!")
 
     }
 
-    override fun onSuccess(response: LiveData<String>) {
-        response.observe(this, Observer {
-            toast(it)
-        })
+    override fun onSuccess(response: LoginResponse) {
+        containerView.snackbar("${response.user?.first_name} ${response.user?.last_name} Token: ${response.user?.token}")
     }
 
     override fun onFailure(msg: String) {
-        toast(msg)
+        containerView.snackbar(msg)
     }
 }
