@@ -9,8 +9,7 @@ const val CURRENT_ID: Int = 0
 @Entity
 data class UserEntity(
     var id: Int? = null,
-    var first_name: String? = null,
-    var last_name: String? = null,
+    var name: String? = null,
     var username: String? = null,
     var created_at: String? = null,
     var token: String? = null

@@ -1,4 +1,4 @@
-package com.dupat.dupatmovie.ui.spash
+package com.dupat.dupatmovie.ui.splash
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

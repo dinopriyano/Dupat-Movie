@@ -1,4 +1,4 @@
-package com.dupat.dupatmovie.data.network.response
+package com.dupat.dupatmovie.data.network
 
 import com.dupat.dupatmovie.ui.utils.APIExceptions
 import org.json.JSONObject

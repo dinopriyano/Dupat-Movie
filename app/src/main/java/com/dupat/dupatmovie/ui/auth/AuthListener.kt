@@ -4,6 +4,6 @@ import com.dupat.dupatmovie.data.network.response.LoginResponse
 
 interface AuthListener {
     fun onProcess()
-    fun onSuccess(response: LoginResponse)
+    fun onSuccess(response: Any)
     fun onFailure(msg: String)
 }
