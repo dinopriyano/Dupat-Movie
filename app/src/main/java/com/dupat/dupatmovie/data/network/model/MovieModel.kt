@@ -7,5 +7,6 @@ class MovieModel(
     @SerializedName("popularity") var popularity: String? = null,
     @SerializedName("id") var id: String? = null,
     @SerializedName("original_title") var original_title: String? = null,
-    @SerializedName("vote_average") var vote_average: String? = null
+    @SerializedName("vote_average") var vote_average: String? = null,
+    @SerializedName("backdrop_path") var backdrop_path: String? = null
 )

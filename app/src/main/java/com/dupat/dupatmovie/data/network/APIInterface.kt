@@ -37,6 +37,12 @@ interface APIInterface {
         @Query("page") page: Int? = null
     ) : Response<MovieResponse>
 
+    @GET("movie/now_playing")
+    suspend fun getBanner(
+        @Query("api_key") api_key: String? = null,
+        @Query("page") page: Int? = null
+    ) : Response<MovieResponse>
+
     companion object{
         var client = OkHttpClient.Builder().apply {
             connectTimeout(30,TimeUnit.SECONDS)

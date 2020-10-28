@@ -11,10 +11,29 @@ import com.dupat.dupatmovie.ui.utils.SingleLiveEvent
 
 class MovieViewModel : ViewModel(){
     private var movies = MutableLiveData<List<MovieModel>>()
+    private var banner = MutableLiveData<List<MovieModel>>()
     private var movie = MutableLiveData<MovieModel>()
     private var state : SingleLiveEvent<MovieState> = SingleLiveEvent()
 
     fun fetchAllMovie(page: Int){
+        Corountines.main {
+            try {
+                val response = MovieRepository().fetchAllMovie(page)
+                response.let {
+                    movies.postValue(it.results)
+
+                    return@main
+                }
+
+            }
+            catch (e: APIExceptions)
+            {
+                state.value = MovieState.Error(e.message)
+            }
+        }
+    }
+
+    fun fetchBanner(page: Int){
         Corountines.main {
             try {
                 val response = MovieRepository().fetchAllMovie(page)

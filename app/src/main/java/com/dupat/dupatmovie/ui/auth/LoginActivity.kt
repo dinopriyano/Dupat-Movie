@@ -24,6 +24,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, AuthListener {
         binding.viewmodel = viewModel
         viewModel.authListener = this
 
+        if(SharedPrefManager.getToken(this,"login") == "yes")
+        {
+            startActivity(Intent(this,HomeActivity::class.java))
+        }
+
         toolBar?.title = ""
         setSupportActionBar(toolBar)
 

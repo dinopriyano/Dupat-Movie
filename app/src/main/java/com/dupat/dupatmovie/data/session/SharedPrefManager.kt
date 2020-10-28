@@ -8,8 +8,10 @@ class SharedPrefManager {
         fun setToken(ctx: Context, key: String, value: String)
         {
             val pref = ctx.getSharedPreferences("MyRef",Context.MODE_PRIVATE)
-            pref.edit().putString(key,value)
-            pref.edit().apply()
+            pref.edit().apply {
+                putString(key,value)
+                apply()
+            }
         }
 
         fun getToken(ctx: Context, key: String) : String
