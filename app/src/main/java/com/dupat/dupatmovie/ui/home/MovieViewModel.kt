@@ -3,6 +3,7 @@ package com.dupat.dupatmovie.ui.home
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dupat.dupatmovie.data.network.model.MovieModel
+import com.dupat.dupatmovie.data.repositories.BannerRepository
 import com.dupat.dupatmovie.data.repositories.LoginRepository
 import com.dupat.dupatmovie.data.repositories.MovieRepository
 import com.dupat.dupatmovie.ui.utils.APIExceptions
@@ -36,9 +37,9 @@ class MovieViewModel : ViewModel(){
     fun fetchBanner(page: Int){
         Corountines.main {
             try {
-                val response = MovieRepository().fetchAllMovie(page)
+                val response = BannerRepository().movieBanner(page)
                 response.let {
-                    movies.postValue(it.results)
+                    banner.postValue(it.results)
 
                     return@main
                 }
@@ -52,6 +53,7 @@ class MovieViewModel : ViewModel(){
     }
 
     fun getMovies() = movies
+    fun getBanner() = banner
     fun getMovie() = movie
     fun getState() = state
 }

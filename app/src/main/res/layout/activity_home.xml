@@ -43,6 +43,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:id="@+id/recycler_movie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

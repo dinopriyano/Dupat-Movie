@@ -5,11 +5,9 @@ import android.view.ViewGroup
 import com.dupat.dupatmovie.R
 import com.dupat.dupatmovie.data.network.model.MovieModel
 import com.dupat.dupatmovie.ui.home.viewholder.BannerViewHolder
-import com.dupat.dupatmovie.ui.home.viewholder.NetViewHolder
 import com.zhpan.bannerview.BaseBannerAdapter
-import com.zhpan.bannerview.BaseViewHolder
 
-class BannerAdapter : BaseBannerAdapter<MovieModel, NetViewHolder>() {
+class BannerAdapter : BaseBannerAdapter<MovieModel, BannerViewHolder>() {
     override fun getLayoutId(viewType: Int): Int {
         return R.layout.item_banner
     }
@@ -18,11 +16,11 @@ class BannerAdapter : BaseBannerAdapter<MovieModel, NetViewHolder>() {
         parent: ViewGroup,
         itemView: View?,
         viewType: Int
-    ): NetViewHolder {
-        return NetViewHolder(itemView);
+    ): BannerViewHolder {
+        return BannerViewHolder(itemView);
     }
 
-    override fun onBind(holder: NetViewHolder?, data: MovieModel?, position: Int, pageSize: Int) {
+    override fun onBind(holder: BannerViewHolder?, data: MovieModel?, position: Int, pageSize: Int) {
         holder?.bindData(data!!, position, pageSize);
     }
 

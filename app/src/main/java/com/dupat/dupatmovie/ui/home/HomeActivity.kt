@@ -1,18 +1,18 @@
 package com.dupat.dupatmovie.ui.home
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.dupat.dupatmovie.R
 import com.dupat.dupatmovie.data.network.model.MovieModel
 import com.dupat.dupatmovie.ui.home.adapter.BannerAdapter
+import com.dupat.dupatmovie.ui.home.adapter.MovieHomeAdapter
+import com.dupat.dupatmovie.ui.home.helper.ItemOffsetDecoration
 import com.dupat.dupatmovie.ui.home.viewholder.BannerViewHolder
-import com.dupat.dupatmovie.ui.home.viewholder.NetViewHolder
 import com.dupat.dupatmovie.ui.utils.toast
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.constants.PageStyle
@@ -23,15 +23,26 @@ import kotlinx.android.synthetic.main.activity_home.*
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var movieViewModel: MovieViewModel
-    private lateinit var bannerView: BannerViewPager<MovieModel,NetViewHolder>
+    private lateinit var bannerView: BannerViewPager<MovieModel,BannerViewHolder>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        setupRecyclerMovie()
         bannerView = findViewById(R.id.banner_view)
         movieViewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
         movieViewModel.getMovies().observe(this, Observer {
+            recycler_movie.adapter?.let { adp ->
+                when(adp)
+                {
+                    is MovieHomeAdapter ->{
+                        adp.setList(it)
+                    }
+                }
+            }
+        })
+        movieViewModel.getBanner().observe(this, Observer {
             setupViewPager(it)
         })
 
@@ -43,6 +54,19 @@ class HomeActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         movieViewModel.fetchAllMovie(1)
+        movieViewModel.fetchBanner(1)
+    }
+
+    private fun setupRecyclerMovie()
+    {
+        val spanCount = 3
+        val spacing = 20
+        val includeEdge = false
+        recycler_movie.apply {
+            layoutManager = GridLayoutManager(this@HomeActivity,3)
+            adapter = MovieHomeAdapter(mutableListOf(),this@HomeActivity)
+            addItemDecoration(ItemOffsetDecoration(spanCount, spacing, includeEdge))
+        }
     }
 
     private fun setupViewPager(list: List<MovieModel>) {
