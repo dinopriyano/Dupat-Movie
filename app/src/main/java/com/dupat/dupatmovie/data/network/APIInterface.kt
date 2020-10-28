@@ -1,6 +1,7 @@
 package com.dupat.dupatmovie.data.network
 
 import com.dupat.dupatmovie.data.network.model.MovieModel
+import com.dupat.dupatmovie.data.network.response.GenreResponse
 import com.dupat.dupatmovie.data.network.response.LoginResponse
 import com.dupat.dupatmovie.data.network.response.MovieResponse
 import com.dupat.dupatmovie.data.network.response.RegisterResponse
@@ -42,6 +43,11 @@ interface APIInterface {
         @Query("api_key") api_key: String? = null,
         @Query("page") page: Int? = null
     ) : Response<MovieResponse>
+
+    @GET("genre/movie/list")
+    suspend fun getGenre(
+        @Query("api_key") api_key: String? = null
+    ) : Response<GenreResponse>
 
     companion object{
         var client = OkHttpClient.Builder().apply {

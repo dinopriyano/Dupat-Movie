@@ -1,15 +1,18 @@
 package com.dupat.dupatmovie.ui.home
 
 import android.os.Bundle
+import android.widget.HorizontalScrollView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.dupat.dupatmovie.R
 import com.dupat.dupatmovie.data.network.model.MovieModel
 import com.dupat.dupatmovie.ui.home.adapter.BannerAdapter
+import com.dupat.dupatmovie.ui.home.adapter.GenreAdapter
 import com.dupat.dupatmovie.ui.home.adapter.MovieHomeAdapter
 import com.dupat.dupatmovie.ui.home.helper.ItemOffsetDecoration
 import com.dupat.dupatmovie.ui.home.viewholder.BannerViewHolder
@@ -30,6 +33,7 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
         setupRecyclerMovie()
+        setupRecyclerGenre()
         bannerView = findViewById(R.id.banner_view)
         movieViewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
         movieViewModel.getMovies().observe(this, Observer {
@@ -37,6 +41,16 @@ class HomeActivity : AppCompatActivity() {
                 when(adp)
                 {
                     is MovieHomeAdapter ->{
+                        adp.setList(it)
+                    }
+                }
+            }
+        })
+        movieViewModel.getGenres().observe(this, Observer {
+            recycler_genre.adapter.let {adp->
+                when(adp)
+                {
+                    is GenreAdapter ->{
                         adp.setList(it)
                     }
                 }
@@ -55,6 +69,15 @@ class HomeActivity : AppCompatActivity() {
         super.onResume()
         movieViewModel.fetchAllMovie(1)
         movieViewModel.fetchBanner(1)
+        movieViewModel.fetchGenres()
+    }
+
+    private fun setupRecyclerGenre()
+    {
+        recycler_genre.apply {
+            layoutManager = LinearLayoutManager(this@HomeActivity,LinearLayoutManager.HORIZONTAL, false)
+            adapter = GenreAdapter(mutableListOf(),this@HomeActivity)
+        }
     }
 
     private fun setupRecyclerMovie()

@@ -2,8 +2,10 @@ package com.dupat.dupatmovie.ui.home
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.dupat.dupatmovie.data.network.model.GenreModel
 import com.dupat.dupatmovie.data.network.model.MovieModel
 import com.dupat.dupatmovie.data.repositories.BannerRepository
+import com.dupat.dupatmovie.data.repositories.GenreRepository
 import com.dupat.dupatmovie.data.repositories.LoginRepository
 import com.dupat.dupatmovie.data.repositories.MovieRepository
 import com.dupat.dupatmovie.ui.utils.APIExceptions
@@ -14,6 +16,7 @@ class MovieViewModel : ViewModel(){
     private var movies = MutableLiveData<List<MovieModel>>()
     private var banner = MutableLiveData<List<MovieModel>>()
     private var movie = MutableLiveData<MovieModel>()
+    private var genres = MutableLiveData<List<GenreModel>>()
     private var state : SingleLiveEvent<MovieState> = SingleLiveEvent()
 
     fun fetchAllMovie(page: Int){
@@ -52,10 +55,28 @@ class MovieViewModel : ViewModel(){
         }
     }
 
+    fun fetchGenres(){
+        Corountines.main {
+            try {
+                val response = GenreRepository().movieGenre()
+                response.let {
+                    genres.postValue(it.genres)
+                    return@main
+                }
+
+            }
+            catch (e: APIExceptions)
+            {
+                state.value = MovieState.Error(e.message)
+            }
+        }
+    }
+
     fun getMovies() = movies
     fun getBanner() = banner
     fun getMovie() = movie
     fun getState() = state
+    fun getGenres() = genres
 }
 
 sealed class MovieState {
