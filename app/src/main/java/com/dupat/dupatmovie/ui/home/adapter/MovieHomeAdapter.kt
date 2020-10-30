@@ -24,11 +24,10 @@ class MovieHomeAdapter(private var list: MutableList<MovieModel>, private var ct
 
     override fun onBindViewHolder(holder: MovieHomeAdapter.ViewHolder, position: Int) = holder.bind(list[position],ctx)
 
-    fun setList(newList: List<MovieModel>)
+    fun addList(newList: List<MovieModel>)
     {
-        list.clear()
         list.addAll(newList)
-        notifyDataSetChanged()
+        notifyItemRangeInserted(list.size-newList.size,newList.size)
     }
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {

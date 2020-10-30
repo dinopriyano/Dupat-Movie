@@ -7,10 +7,17 @@
         <variable
             name="viewmodel"
             type="com.dupat.dupatmovie.ui.home.MovieViewModel" />
+
+        <variable
+            name="isLoadingMoreMovie"
+            type="Boolean" />
+        
+        <import type="android.view.View"/>
     </data>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
+        android:id="@+id/scrollContainer"
         android:layout_height="match_parent"
         android:fillViewport="true"
         android:background="#000000"
@@ -92,6 +99,12 @@
                     android:id="@+id/recycler_movie"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+
+                <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:visibility="@{isLoadingMoreMovie? View.VISIBLE: View.GONE}"/>
 
             </LinearLayout>
 
