@@ -9,4 +9,8 @@ class MovieRepository: SafeAPIRequest() {
     suspend fun fetchAllMovie(page: Int) : MovieResponse{
         return apiRequest { APIInterface(Constant.baseMovie).getMovieList(Constant.api_key,page) }
     }
+
+    suspend fun fetchAllMovieByGenre(page: Int, genre: Int) : MovieResponse{
+        return apiRequest { APIInterface(Constant.baseMovie).getMovieListByGenre(Constant.api_key,genre,page) }
+    }
 }

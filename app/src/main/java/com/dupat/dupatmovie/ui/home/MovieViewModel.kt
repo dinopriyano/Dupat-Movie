@@ -40,6 +40,26 @@ class MovieViewModel : ViewModel(){
         }
     }
 
+    fun fetchMovieByGenre(page: Int,genre: Int){
+        Corountines.main {
+            state.value = MovieState.IsLoadingMoreMovie(true)
+            try {
+                val response = MovieRepository().fetchAllMovieByGenre(page,genre)
+                response.let {
+                    movies.postValue(it)
+                    state.value = MovieState.IsLoadingMoreMovie(false)
+                    return@main
+                }
+
+            }
+            catch (e: APIExceptions)
+            {
+                state.value = MovieState.IsLoadingMoreMovie(false)
+                state.value = MovieState.Error(e.message)
+            }
+        }
+    }
+
     fun fetchBanner(page: Int){
         Corountines.main {
             try {

@@ -38,6 +38,13 @@ interface APIInterface {
         @Query("page") page: Int? = null
     ) : Response<MovieResponse>
 
+    @GET("discover/movie")
+    suspend fun getMovieListByGenre(
+        @Query("api_key") api_key: String? = null,
+        @Query("with_genres") with_genres: Int,
+        @Query("page") page: Int? = null
+    ) : Response<MovieResponse>
+
     @GET("movie/now_playing")
     suspend fun getBanner(
         @Query("api_key") api_key: String? = null,
